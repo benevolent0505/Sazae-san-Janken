@@ -7,8 +7,26 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
+  console.log('connection : ' + Object.keys(io.sockets.sockets).length);
+
+  socket.on('activity', function(data) {
+    var name = data.name ? data.name : 'anonymous';
+    console.log(data);
+
+    switch(data.activity) {
+      case 'connect':
+        console.log(name + ' user connected');
+        break;
+    }
+  });
+
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
+  });
+
+  socket.on('disconnect', function() {
+    console.log('user disconnect');
+    console.log('disconnect : ' + Object.keys(io.sockets.sockets).length);
   });
 });
 
