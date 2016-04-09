@@ -13,6 +13,13 @@
     <div class="container-fluid">
       <h1>サザエさんじゃんけん</h1>
       <div class="row">
+        <form class="form-inline">
+          <fieldset class="form-group col-md-offset-4 col-md-4">
+            <input type="text" id="name" class="form-control" placeholder="set your name...">
+          </fieldset>
+        </form>
+      </div>
+      <div class="row">
         <div class="col-md-4">
           <a id="rock" href="#" class="btn btn-primary-outline btn-lg"><i class="fa fa-hand-rock-o fa-5x"></i></a>
         </div>
@@ -34,14 +41,21 @@
      var socket = io(location.host + '/janken');
 
      $('#rock').click(function() {
-       socket.emit('janken', { value: 'rock' });
+       socket.emit('janken', { name: $('#name').val(), value: 'rock' });
      });
      $('#paper').click(function() {
-       socket.emit('janken', { value: 'paper' });
+       socket.emit('janken', { name: $('#name').val(), value: 'paper' });
      });
      $('#scissors').click(function() {
-       socket.emit('janken', { value: 'scissors' });
+       socket.emit('janken', { name: $('#name').val(), value: 'scissors' });
+     });
+
+     socket.on('opponent', function(data) {
+       var name = $('#name').val();
+       if (data.name != name) {
+       }
      });
     </script>
   </body>
 </html>
+

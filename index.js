@@ -15,7 +15,7 @@ janken.on('connection', function(socket) {
   console.log('janken connection');
 
   socket.on('janken', function(data) {
-    console.log(data);
+    io.emit('opponent', data);
   });
 });
 
