@@ -26,7 +26,8 @@ socket.on('opponent', function(hand) {
   if (isSend) {
     var now = Date.now();
     if (Math.abs(now - hand.timestamp) < 1000) {
-      console.log(decisionWinLose(hand.value));
+      $('#sazae-hand').append('<a id="' + hand.value + '" href="#" class="btn btn-primary-outline btn-lg"><i class="fa fa-hand-' + hand.value + '-o fa-5x"></i></a>');
+      document.getElementById('result').textContent = decisionWinLose(hand.value);
     } else {
       console.log('後出し');
     }
@@ -39,33 +40,36 @@ socket.on('opponent', function(hand) {
 
 function decisionWinLose(opponentHand) {
   var result = '';
+  var win = 'あなたの勝ちです！！'
+  var lose = 'まけー';
+  var draw = 'あいこだね'
 
   switch(opponentHand) {
     case 'rock':
       if (ownHand == 'paper') {
-        result = 'win';
+        result = win;
       } else if (ownHand == 'scissors') {
-        result = 'lose';
+        result = lose;
       } else {
-        result = 'draw';
+        result = draw;
       }
       break;
     case 'paper':
       if (ownHand == 'scissors') {
-        result = 'win';
+        result = win;
       } else if (ownHand == 'rock') {
-        result = 'lose';
+        result = lose;
       } else {
-        result = 'draw';
+        result = draw;
       }
       break;
     case 'scissors':
       if (ownHand == 'rock') {
-        result = 'win';
+        result = win;
       } else if (ownHand == 'paper') {
-        result = 'lose';
+        result = lose;
       } else {
-        result = 'draw';
+        result = draw;
       }
       break;
     default:
