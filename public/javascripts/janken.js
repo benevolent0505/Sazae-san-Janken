@@ -25,7 +25,7 @@ $('#scissors').click(function() {
 socket.on('opponent', function(hand) {
   if (isSend) {
     var now = Date.now();
-    if (Math.abs(now - hand.timestamp) < 10) {
+    if (Math.abs(now - hand.timestamp) < 100) {
       console.log(decisionWinLose(hand.value));
     } else {
       console.log('後出し');
