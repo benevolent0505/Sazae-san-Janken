@@ -23,7 +23,18 @@ $('#scissors').click(function() {
 });
 
 socket.on('opponent', function(hand) {
-  console.log(decisionWinLose(hand.value));
+  if (isSend) {
+    var now = Date.now();
+    if (Math.abs(now - hand.timestamp) < 10) {
+      console.log(decisionWinLose(hand.value));
+    } else {
+      console.log('後出し');
+    }
+  } else {
+    var intervalId = setInterval(function() {
+      if (isSend) clearInterval(intervalId);
+    }, 10);
+  }
 });
 
 function decisionWinLose(opponentHand) {

@@ -24,7 +24,7 @@ io.on('connection', function(socket) {
 
     if (hand.master) {
       masterId = socket.id;
-      socket.broadcast.emit('opponent', { id: socket.id, value: hand.value});
+      socket.broadcast.emit('opponent', { id: socket.id, value: hand.value, timestamp: Date.now() });
     } else {
       socket.to(masterId).emit('opponent', { id: socket.id, value: hand.value});
     }

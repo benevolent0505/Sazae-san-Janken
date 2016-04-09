@@ -31,14 +31,8 @@ $('#scissors').click(function() {
 });
 
 socket.on('opponent', function(hand) {
-  if (isSend) {
-    console.log(Date.now());
-    console.log(decisionWinLose(hand.value));
-  } else {
-    var intervalId = setInterval(function() {
-      if (isSend) clearInterval(intervalId);
-    }, 10);
-  }
+  console.log(hand.id);
+  decisionWinLose(hand.value);
 });
 
 
