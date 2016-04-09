@@ -6,6 +6,19 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/janken', function(req, res) {
+  res.sendFile(__dirname + '/janken.html');
+});
+
+var janken = io.of('/janken');
+janken.on('connection', function(socket) {
+  console.log('janken connection');
+
+  socket.on('janken', function(data) {
+    console.log(data);
+  });
+});
+
 io.on('connection', function(socket){
   console.log('connection : ' + Object.keys(io.sockets.sockets).length);
 

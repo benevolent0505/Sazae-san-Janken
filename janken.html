@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>サザエさんじゃんけん</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <div class="container-fluid">
+      <h1>サザエさんじゃんけん</h1>
+      <div class="row">
+        <div class="col-md-4">
+          <a id="rock" href="#" class="btn btn-primary-outline btn-lg"><i class="fa fa-hand-rock-o fa-5x"></i></a>
+        </div>
+        <div class="col-md-4">
+          <a id="paper" href="#" class="btn btn-primary-outline btn-lg"><i class="fa fa-hand-paper-o fa-5x"></i></a>
+        </div>
+        <div class="col-md-4">
+          <a id="scissors" href="#" class="btn btn-primary-outline btn-lg"><i class="fa fa-hand-scissors-o fa-5x"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+    <script>
+     var socket = io(location.host + '/janken');
+
+     $('#rock').click(function() {
+       socket.emit('janken', { value: 'rock' });
+     });
+     $('#paper').click(function() {
+       socket.emit('janken', { value: 'paper' });
+     });
+     $('#scissors').click(function() {
+       socket.emit('janken', { value: 'scissors' });
+     });
+    </script>
+  </body>
+</html>
