@@ -1,55 +1,49 @@
 var socket = io();
 var ownHand = '';
 var isSend = false;
+var id = '';
 
 socket.on('activity', function(data) {
   document.getElementById('count').textContent = data.count;
 });
 
 $('#rock').click(function() {
-  ownHand = 'rock';
-  socket.emit('janken', { value: ownHand });
-  isSend = true;
+  sendHand('rock');
 });
 $('#paper').click(function() {
-  ownHand = 'paper';
-  socket.emit('janken', { value: ownHand });
-  isSend = true;
+  sendHand('paper');
 });
 $('#scissors').click(function() {
-  ownHand = 'scissors';
-  socket.emit('janken', { value: ownHand });
-  isSend = true;
+  sendHand('scissors');
 });
 
 socket.on('opponent', function(hand) {
-  if (isSend) {
-    decisionAtodashiAndDisplayResult();
-  } else {
-    var intervalId = sendInterval();
+  $('#sazae-hand').empty();
+  $('#sazae-hand').append('<a id="' + hand.value + '" href="#" class="btn btn-primary-outline btn-lg"><i class="fa fa-hand-' + hand.value + '-o fa-5x"></i></a>');
 
-    clearInterval(intervalId);
+  if (isSend) {
+    dumpResult();
+  } else {
+    // 送信するまで待つ
+    id = setTimeout(function() {
+      document.getElementById('result').textContent = '後出しじゃん';
+    }, 1000);
   }
 });
 
-function decisionAtodashiAndDisplayResult() {
+function dumpResult() {
   var now = Date.now();
   if (Math.abs(now - hand.timestamp) < 1000) {
-    $('#sazae-hand').append('<a id="' + hand.value + '" href="#" class="btn btn-primary-outline btn-lg"><i class="fa fa-hand-' + hand.value + '-o fa-5x"></i></a>');
     document.getElementById('result').textContent = decisionWinLose(hand.value);
   } else {
-    console.log('後出し');
+    document.getElementById('result').textContent = '後出しじゃん';
   }
 }
 
-function sendInterval() {
-  var id = setInterval(function() {
-    if (isSend) {
-      decisionAtodashiAndDisplayResult();
-    }
-  }, 50);
-
-  return id;
+function sendHand(hand) {
+  socket.emit('janken', { value: hand });
+  isSend = true;
+  clearTimeout(id);
 }
 
 function decisionWinLose(opponentHand) {
