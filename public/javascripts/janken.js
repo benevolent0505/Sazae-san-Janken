@@ -43,6 +43,7 @@ function dumpResult(hand) {
 
 function sendHand(hand) {
   socket.emit('janken', { value: hand });
+  ownHand = hand;
   isSend = true;
   clearTimeout(id);
 }
