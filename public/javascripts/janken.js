@@ -19,13 +19,13 @@ $('#scissors').click(function() {
 
 socket.on('opponent', function(hand) {
   $('#sazae-hand').empty();
-  $('#sazae-hand').append('<a id="' + hand.value + '" href="#" class="btn btn-primary-outline btn-lg"><i class="fa fa-hand-' + hand.value + '-o fa-5x"></i></a>');
+  $('#sazae-hand').append('<a href="#" class="btn btn-primary-outline btn-lg"><i class="fa fa-hand-' + hand.value + '-o fa-5x"></i></a>');
 
   if (isSend) {
     dumpResult();
   } else {
-    // 送信するまで待つ
     id = setTimeout(function() {
+      console.log('timeout');
       document.getElementById('result').textContent = '後出しじゃん';
     }, 1000);
   }
@@ -36,6 +36,7 @@ function dumpResult() {
   if (Math.abs(now - hand.timestamp) < 1000) {
     document.getElementById('result').textContent = decisionWinLose(hand.value);
   } else {
+    console.log('sabun');
     document.getElementById('result').textContent = '後出しじゃん';
   }
 }
