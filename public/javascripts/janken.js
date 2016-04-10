@@ -60,6 +60,7 @@ function decisionWinLose(opponentHand) {
       } else if (ownHand == 'scissors') {
         result = lose;
       } else {
+        console.log(ownHand);
         result = draw;
       }
       break;
@@ -69,6 +70,7 @@ function decisionWinLose(opponentHand) {
       } else if (ownHand == 'rock') {
         result = lose;
       } else {
+        console.log(ownHand);
         result = draw;
       }
       break;
@@ -78,6 +80,7 @@ function decisionWinLose(opponentHand) {
       } else if (ownHand == 'paper') {
         result = lose;
       } else {
+        console.log(ownHand);
         result = draw;
       }
       break;
