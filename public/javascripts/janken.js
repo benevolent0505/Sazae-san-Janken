@@ -22,7 +22,7 @@ socket.on('opponent', function(hand) {
   $('#sazae-hand').append('<a href="#" class="btn btn-primary-outline btn-lg"><i class="fa fa-hand-' + hand.value + '-o fa-5x"></i></a>');
 
   if (isSend) {
-    dumpResult();
+    dumpResult(hand);
   } else {
     id = setTimeout(function() {
       console.log('timeout');
@@ -31,7 +31,7 @@ socket.on('opponent', function(hand) {
   }
 });
 
-function dumpResult() {
+function dumpResult(hand) {
   var now = Date.now();
   if (Math.abs(now - hand.timestamp) < 1000) {
     document.getElementById('result').textContent = decisionWinLose(hand.value);
