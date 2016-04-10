@@ -24,25 +24,39 @@ $('#scissors').click(function() {
 
 socket.on('opponent', function(hand) {
   if (isSend) {
-    var now = Date.now();
-    if (Math.abs(now - hand.timestamp) < 1000) {
-      $('#sazae-hand').append('<a id="' + hand.value + '" href="#" class="btn btn-primary-outline btn-lg"><i class="fa fa-hand-' + hand.value + '-o fa-5x"></i></a>');
-      document.getElementById('result').textContent = decisionWinLose(hand.value);
-    } else {
-      console.log('後出し');
-    }
+    decisionAtodashiAndDisplayResult();
   } else {
-    var intervalId = setInterval(function() {
-      if (isSend) clearInterval(intervalId);
-    }, 10);
+    var intervalId = sendInterval();
+
+    clearInterval(intervalId);
   }
 });
 
+function decisionAtodashiAndDisplayResult() {
+  var now = Date.now();
+  if (Math.abs(now - hand.timestamp) < 1000) {
+    $('#sazae-hand').append('<a id="' + hand.value + '" href="#" class="btn btn-primary-outline btn-lg"><i class="fa fa-hand-' + hand.value + '-o fa-5x"></i></a>');
+    document.getElementById('result').textContent = decisionWinLose(hand.value);
+  } else {
+    console.log('後出し');
+  }
+}
+
+function sendInterval() {
+  var id = setInterval(function() {
+    if (isSend) {
+      decisionAtodashiAndDisplayResult();
+    }
+  }, 50);
+
+  return id;
+}
+
 function decisionWinLose(opponentHand) {
   var result = '';
-  var win = 'あなたの勝ちです！！'
+  var win = 'あなたの勝ちです！！'
   var lose = 'まけー';
-  var draw = 'あいこだね'
+  var draw = 'あいこだね'
 
   switch(opponentHand) {
     case 'rock':
